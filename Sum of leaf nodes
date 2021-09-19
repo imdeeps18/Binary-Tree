@@ -1,0 +1,16 @@
+class GfG
+{
+    public static int sumOfLeafNodes(Node root)
+    {
+        // code here 
+        if(root==null)
+            return 0;
+        if(root.left==null && root.right==null)
+            return root.data;
+        
+        int lsum = sumOfLeafNodes(root.left);
+        int rsum = sumOfLeafNodes(root.right);
+        
+        return lsum+rsum;
+    }
+}
