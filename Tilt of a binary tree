@@ -1,0 +1,19 @@
+class Solution{
+    int sum=0;
+    public int total(Node root){
+        if(root==null)
+            return 0;
+        int lsum = total(root.left);
+        int rsum = total(root.right);
+        
+        sum+=Math.abs(lsum-rsum);
+        
+        return lsum+rsum+root.data;
+    }
+    public int tiltTree(Node root){
+        //code here
+        int d = total(root);
+        return sum;
+        //return total(root);
+    }
+}
