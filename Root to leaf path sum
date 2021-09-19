@@ -1,0 +1,40 @@
+class Tree1
+{
+    static void find(Node root,ArrayList<Integer> list,ArrayList<ArrayList<Integer>>ans ){
+        if(root==null){
+          return;  
+        }
+        list.add(root.data);
+        if(root.left==null && root.right==null){
+            ans.add(new ArrayList<>(list));
+            list.remove(list.size()-1);
+            return;
+        }
+        find(root.left, list, ans);
+        find(root.right, list, ans);
+        list.remove(list.size()-1);
+    }
+    public static long number(ArrayList<Integer>list){
+        long mul = (long)Math.pow(10,list.size()-1);
+        long num=0;
+        for(int i=0;i<list.size();i++){
+            Long l2 = Long.valueOf(list.get(i));
+            long val = mul*l2;
+            mul=mul/10;
+            num=num+val;
+        }
+        return num;
+    }
+	public static long treePathsSum(Node root)
+    {
+         //add code here.
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<ArrayList<Integer>>ans = new ArrayList<>();
+        find(root, list, ans);
+        long sum=0;
+        for(ArrayList<Integer>it:ans){
+            sum = sum+number(it);
+        }
+        return sum;
+	}
+}
