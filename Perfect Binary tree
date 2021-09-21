@@ -1,0 +1,33 @@
+class Solution{
+    static class pair{
+        int height;
+        boolean isBal;
+        pair(int height, boolean isBal){
+            this.height=height;
+            this.isBal=isBal;
+        }
+    }
+    public static pair perfect(Node root){
+        if(root==null){
+            pair base = new pair(0,true);
+            return base;
+        }
+        
+        pair ltree = perfect(root.left);
+        pair rtree = perfect(root.right);
+        boolean isBal = true;
+        if(Math.abs(ltree.height-rtree.height)>0)
+            isBal = false;
+        if(ltree.isBal==false || rtree.isBal==false)
+            isBal=false;
+        int height = Math.max(ltree.height, rtree.height) +1;
+        pair ans = new pair(height,isBal);
+        return ans;
+    }
+    public static boolean isPerfect(Node root){
+        //code here
+        pair ans = perfect(root);
+        boolean bal = ans.isBal;
+        return bal;
+    }
+}
