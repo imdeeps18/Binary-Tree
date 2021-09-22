@@ -1,0 +1,39 @@
+class Tree
+{
+    //Function to check whether all nodes of a tree have the value 
+    //equal to the sum of their child nodes.
+    static class pair{
+        int sum;
+        boolean isProp;
+        pair(int sum, boolean isProp){
+            this.sum=sum;
+            this.isProp = isProp;
+        }
+    }
+    public static pair isTrue(Node root){
+        if(root==null){
+            return new pair(0,true);
+        }
+        if(root.left==null && root.right==null){
+            return new pair(root.data,true);
+        }
+        pair lsum = isTrue(root.left);
+        pair rsum = isTrue(root.right);
+        boolean is = true;
+        if(lsum.isProp==false || rsum.isProp==false)
+            is = false;
+        if(lsum.sum+rsum.sum!=root.data)
+            is = false;
+        int sum = root.data;
+        
+        pair ans = new pair(sum,is);
+        return ans;
+    }
+    public static int isSumProperty(Node root)
+    {
+        pair ans = isTrue(root); 
+        if(ans.isProp==true)
+            return 1;
+        return 0;
+    }
+}
