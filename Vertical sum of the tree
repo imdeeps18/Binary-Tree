@@ -1,0 +1,50 @@
+class Solution{
+    public static class NodeLevel{
+        Node node;
+        int level;
+        NodeLevel(Node node, int level){
+            this.node = node;
+            this.level = level;
+        }
+    }
+    
+    
+    private static int VerticalSum(ArrayList<Integer> value) {
+        int sum=0;
+        for (int i: value) {
+            sum=sum+i;
+        }
+        return sum;
+    }
+    
+    
+    public ArrayList <Integer> verticalSum(Node root) {
+        // add your code here
+        ArrayList<Integer>ans = new ArrayList<>();
+        Map<Integer, ArrayList<Integer>> mp = new TreeMap<>();
+
+        Queue<NodeLevel> q = new LinkedList<>();
+
+        q.add(new NodeLevel(root, 0));
+        while(q.size()>0){
+            NodeLevel temp = q.peek();
+            q.remove();
+            int data = temp.node.data;
+            int l = temp.level;
+            if(!mp.containsKey(l)) {
+                mp.put(l, new ArrayList<>());
+            }
+            mp.get(l).add(data);
+
+            if(temp.node.left!=null)
+                q.add(new NodeLevel(temp.node.left, temp.level-1));
+            if(temp.node.right!=null)
+                q.add(new NodeLevel(temp.node.right, temp.level+1));
+        }
+        for (Map.Entry<Integer, ArrayList<Integer>> integerArrayListEntry : mp.entrySet())
+            ans.add(VerticalSum(integerArrayListEntry.getValue()));
+            
+        return ans;
+
+    }
+}
